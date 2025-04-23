@@ -1,11 +1,12 @@
 import { build } from "esbuild";
 import ts from "typescript"
+import { sassPlugin } from "esbuild-sass-plugin";
 
 const OUTPUT_DIR = '.build';
 
 await build({
-    external: ["radix-ui", "react"],
-    entryPoints: ["./src/mod.ts", "./src/styles.css"],
+    external: ["radix-ui", "react", "motion"],
+    entryPoints: ["./src/mod.ts", "./src/styles.scss"],
     bundle: true,
     jsx: "automatic",
     loader: {
@@ -13,7 +14,8 @@ await build({
     },
     outdir: OUTPUT_DIR,
     format: "esm",
-    target: "ES2022"
+    target: "ES2022",
+    plugins: [sassPlugin()]
 })
 
 // Read tsconfig.json

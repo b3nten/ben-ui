@@ -1,6 +1,6 @@
 {
 	"name": "@100x/ui",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"type": "module",
 	"publishConfig": {
 		"access": "public"
@@ -8,7 +8,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "node build",
-		"lint": "biome check --fix"
+		"lint": "biome check --fix",
+		"launch": "pnpm build && npm publish"
 	},
 	"files": [
 		".build"
@@ -21,7 +22,10 @@
 		"./styles.css": "./.build/styles.css"
 	},
 	"peerDependencies": {
-		"radix-ui": "^1.2.0"
+		"radix-ui": "^1.2.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"motion": "^12.7.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
@@ -30,14 +34,12 @@
 		"@types/react-dom": "^19.0.4",
 		"@vitejs/plugin-react-swc": "^3.9.0",
 		"esbuild": "^0.25.2",
+		"esbuild-sass-plugin": "^3.3.1",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"sass": "^1.87.0",
 		"typescript": "~5.7.2",
 		"vite": "^6.3.2"
 	},
-	"packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
-	"dependencies": {
-		"motion": "^12.7.4"
-	}
+	"packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
 }
