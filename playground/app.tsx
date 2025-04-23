@@ -1,4 +1,4 @@
-import { Box, Button, tags } from "../src/mod.ts";
+import { Box, Button, Heading, tags, Text } from "../src/mod.ts";
 import { yStack } from "../src/tokens.ts";
 import { useState } from "react";
 
@@ -18,10 +18,42 @@ export default () => {
 				...yStack({ gap: "1rem", align: "start" }),
 			}}
 		>
-			<tags.h1
-				css={{ fontSize: "5rem", marginBottom: "1rem" }}>
-				Welcome to <br/> my own website
-			</tags.h1>
+			<Heading scale={0}>
+				Hello world!
+			</Heading>
+			<Heading scale={1}>
+				Hello world!
+			</Heading>
+			<Heading scale={2}>
+				Hello world!
+			</Heading>
+			<Heading scale={3}>
+				Hello world!
+			</Heading>
+			<Heading scale={4}>
+				Hello world!
+			</Heading>
+			<Heading scale={5}>
+				Hello world!
+			</Heading>
+			<Heading scale={6}>
+				Hello world!
+			</Heading>
+			<Heading scale={7}>
+				Hello world!
+			</Heading>
+			<Heading scale={8}>
+				Hello world!
+			</Heading>
+			<Heading scale={9}>
+				Hello world!
+			</Heading>
+			<Heading scale={10}>
+				Hello world!
+			</Heading>
+			<Text>
+				Hello this is a text block!
+			</Text>
 			<Button
 				color={"rose"}
 				tooltip={"hello :)"}

@@ -4,19 +4,20 @@ import { CSSSelectors, StyleContext } from "./uiprovider.tsx";
 import { color as colorFn, spacing, typography, xStack } from "./tokens.ts";
 import { Tooltip } from "./tooltip.tsx";
 import { AnimatePresence } from "motion/react";
+import { useCache } from "./util.ts";
 
 let ghost = (g: any, s: string) => g ? "transparent" : s
 
 let padding = {
-	sm: `${spacing["1"]} ${spacing["2"]}`,
-	md: `${spacing["1"]} ${spacing["3"]}`,
-	lg: `${spacing["2"]} ${spacing["6"]}`,
+	sm: `${spacing["2"]} ${spacing["2"]}`,
+	md: `${spacing["2"]} ${spacing["3"]}`,
+	lg: `${spacing["3"]} ${spacing["6"]}`,
 }
 
 let fontScale = {
-	sm: typography.scale[2],
-	md: typography.scale[3],
-	lg: typography.scale[6],
+	sm: typography.scale[1],
+	md: typography.scale[2],
+	lg: typography.scale[3],
 }
 
 let makeButtonStyles = (
@@ -32,12 +33,15 @@ let makeButtonStyles = (
 	padding: padding[args.size],
 	transition: "all 0.1s ease-in-out",
 	borderRadius: "999px",
+	fontFamily: typography.style.sansSerif,
 	backgroundColor: ghost(
 		args.ghost,
 		colorFn({ name: args.color, usage: "bg", action: "normal" })
 	),
 	color: colorFn({ name: args.color, usage: "text", action: "normal" }),
 	border: `1px solid ${ghost(args.ghost, colorFn({ name: args.color, usage: "fg", action: "normal" }))}`,
+	pointerEvents: args.pending ? "none" : "auto",
+	cursor: args.pending ? "not-allowed" : "pointer",
 	hover: {
 		backgroundColor: colorFn({ name: args.color, usage: "bg", action: "hover" }),
 		color: colorFn({ name: args.color, usage: "text", action: "hover" }),
@@ -72,9 +76,7 @@ let makePendingStyles = (color: string) => ({
 		usage: "bg",
 		action: "hover",
 	}),
-	display: "flex",
-	justifyContent: "center",
-	alignItems: "center",
+	...xStack(),
 })
 
 export type ButtonProps<T extends ElementType = "button"> = BoxProps<T> & {
@@ -105,16 +107,16 @@ export let Button = <T extends ElementType = "button">(
 
 	let cssFn = use(StyleContext).css
 
-	let _css = useMemo(() => cssFn(
-			makeButtonStyles({
-				size: size ?? "md",
-				color,
-				ghost,
-				pending,
-			}),
-			css
-		),
-		[css, color, size, ghost, invert, pending]
+	let compiledBtnStyles = useCache("buttonStyles", () => makeButtonStyles({
+		size: size ?? "md",
+		color,
+		ghost,
+		pending,
+	}), [color, size, ghost, pending])
+
+	let _css = useMemo(() =>
+		cssFn(compiledBtnStyles, css),
+		[compiledBtnStyles, css, color, size, ghost, pending]
 	)
 
 	let classes = `${fontScale[size ?? "md"]} ${className ?? ""}`

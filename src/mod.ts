@@ -4,3 +4,9 @@ export { useMergedStyles } from "./util"
 export { type BoxProps, Box } from "./box.tsx"
 export { type ButtonProps, Button } from "./button.tsx"
 export { default as tags } from "./tags.ts"
+export {
+	type HeadingProps,
+	Heading,
+	type TextProps,
+	Text,
+} from "./typography.tsx"

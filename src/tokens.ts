@@ -3,24 +3,28 @@ import { CSSProperties } from "react";
 export let yStack = (
 	args: {
 		align?: CSSProperties["alignItems"],
+		justify?: CSSProperties["justifyContent"],
 		gap?: string,
 	} = {}
 ): Partial<CSSProperties> => ({
 	display: "flex",
 	flexDirection: "column",
-	alignItems: args.align ?? "stretch",
+	alignItems: args.align ?? "center",
+	justifyContent: args.justify ?? "center",
 	gap: args.gap ?? "0px",
 })
 
 export let xStack = (
 	args: {
 		align?: CSSProperties["alignItems"],
+		justify?: CSSProperties["justifyContent"],
 		gap?: string,
 	} = {}
 ): Partial<CSSProperties> => ({
 	display: "flex",
 	flexDirection: "row",
-	alignItems: args.align ?? "stretch",
+	alignItems: args.align ?? "center",
+	justifyContent: args.justify ?? "center",
 	gap: args.gap ?? "0px",
 })
 
