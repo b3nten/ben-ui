@@ -9,4 +9,10 @@ export {
 	Heading,
 	type TextProps,
 	Text,
+	type LinkProps,
+	Link,
+	type CodeProps,
+	Code,
+	type BlockquoteProps,
+	Blockquote,
 } from "./typography.tsx"

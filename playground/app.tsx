@@ -1,15 +1,17 @@
-import { Box, Button, Heading, tags, Text } from "../src/mod.ts";
+import { Blockquote, Box, Button, Code, Heading, Link, Text } from "../src/mod.ts";
 import { yStack } from "../src/tokens.ts";
 import { useState } from "react";
 
 export default () => {
 	let [pending, setPending] = useState(false)
+
 	let pend = () => {
 		setPending(true)
 		setTimeout(() => {
 			setPending(false)
 		}, 1000)
 	}
+
 	return (
 		<Box
 			css={{
@@ -51,9 +53,18 @@ export default () => {
 			<Heading scale={10}>
 				Hello world!
 			</Heading>
-			<Text>
-				Hello this is a text block!
+			<Text color={"rose"} tooltip={"LOL"}>
+				Hello this is a text and <Code tooltip={"some code"}>code</Code> block!
 			</Text>
+			<Link href={"/foo"} color={"rose"}>
+				Hello this is a link block!
+			</Link>
+			<Link href={"/bar"} color={"rose"} tooltip={"wow"}>
+				Hello this is a link block!
+			</Link>
+			<Blockquote>
+				"Ut nonummy habent soluta claritas veniam. Typi nunc soluta hendrerit mutationem sollemnes. Quis lius dolore et insitam vel. Aliquip consequat futurum claram ut mazim. Facilisi accumsan dolore ii imperdiet consequat. Claritatem aliquip quod putamus vulputate iusto. Doming minim typi zzril lius usus. In clari mutationem autem non sit. Qui augue mirum dynamicus gothica ut. Demonstraverunt processus soluta sequitur autem demonstraverunt."
+			</Blockquote>
 			<Button
 				color={"rose"}
 				tooltip={"hello :)"}
@@ -63,7 +74,6 @@ export default () => {
 				Size sm
 			</Button>
 			<Button
-				color={"neutral"}
 				tooltip={"hello :)"}
 				size={"md"}
 				onClick={pend}

@@ -1,8 +1,8 @@
 import { Tooltip as TooltipImpl } from "radix-ui";
-import { PropsWithChildren, ReactNode, useState } from "react";
+import { createElement, PropsWithChildren, ReactNode, useState } from "react";
 import { AnimatePresence } from "motion/react";
 import { Box } from "./mod.ts"
-import { color, spacing } from "./tokens.ts";
+import { makeColor, spacing } from "./tokens.ts";
 
 export let Root = TooltipImpl.Root;
 export let Trigger = TooltipImpl.Trigger;
@@ -23,8 +23,8 @@ export let Content = (props: PropsWithChildren<TooltipImpl.TooltipContentProps>)
 	)
 }
 
-export let Tooltip = (props: PropsWithChildren<{ content: ReactNode }>) => {
-	let { content } = props;
+export let Tooltip = (props: PropsWithChildren<{ content: ReactNode, color?: string }>) => {
+	let { content, color = "neutral" } = props;
 	let [open, setOpen] = useState(false);
 	return (
 		<TooltipImpl.Root open={open} onOpenChange={setOpen}>
@@ -53,16 +53,16 @@ export let Tooltip = (props: PropsWithChildren<{ content: ReactNode }>) => {
 								transition={{ type: "spring", duration: 0.3, bounce: .55,  }}
 								css={{
 									transformOrigin: "var(--radix-tooltip-content-transform-origin)",
-									backgroundColor: color({
-										name: "neutral",
+									backgroundColor: makeColor({
+										name: color,
 										usage: "overlay"
 									}),
-									color: color({
-										name: "neutral",
+									color: makeColor({
+										name: color,
 										usage: "text",
 									}),
-									border: `1px solid ${color({
-										name: "neutral",
+									border: `1px solid ${makeColor({
+										name: color,
 										usage: "fg",
 									})}`,
 									padding: `${spacing[1]} ${spacing[2]}`,
@@ -71,8 +71,8 @@ export let Tooltip = (props: PropsWithChildren<{ content: ReactNode }>) => {
 							>
 								{content}
 								<TooltipImpl.Arrow
-									fill={color({
-										name: "neutral",
+									fill={makeColor({
+										name: color,
 										usage: "fg",
 									})}
 								/>
@@ -84,3 +84,13 @@ export let Tooltip = (props: PropsWithChildren<{ content: ReactNode }>) => {
 		</TooltipImpl.Root>
 	)
 }
+
+
+export let withTooltip = (children: ReactNode, content?: ReactNode, color?: string) =>
+	content ? (
+		<Tooltip content={content} color={color}>
+			{children}
+		</Tooltip>
+	) : (
+		children
+	)

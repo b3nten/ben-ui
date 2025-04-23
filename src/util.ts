@@ -1,4 +1,5 @@
-import { CSSProperties, useMemo } from "react";
+import { createElement, CSSProperties, PropsWithChildren, ReactNode, useMemo } from "react";
+import { ThemeProvider } from "./themeprovider.tsx";
 
 export type DistributiveOmit<T, K extends keyof any> = T extends any
 	? Omit<T, K>
@@ -21,3 +22,6 @@ export let useCache = <T>(key: string, fn: () => T, deps: Array<ValueType>) => {
 	}
 	return cache[_key]
 }
+
+export let WithTheme = (props: PropsWithChildren<{ color?: string }>) =>
+	props.color ? createElement(ThemeProvider, props) : props.children

@@ -1,10 +1,11 @@
 import { Box, type BoxProps } from "./box.tsx";
 import { CSSProperties, ElementType, use, useMemo } from "react";
 import { CSSSelectors, StyleContext } from "./uiprovider.tsx";
-import { color as colorFn, spacing, typography, xStack } from "./tokens.ts";
-import { Tooltip } from "./tooltip.tsx";
+import { makeColor as colorFn, spacing, typography, xStack } from "./tokens.ts";
+import { withTooltip } from "./tooltip.tsx";
 import { AnimatePresence } from "motion/react";
-import { useCache } from "./util.ts";
+import { useCache, WithTheme } from "./util.ts";
+import { ThemeContext } from "./themeprovider.tsx";
 
 let ghost = (g: any, s: string) => g ? "transparent" : s
 
@@ -15,9 +16,9 @@ let padding = {
 }
 
 let fontScale = {
-	sm: typography.scale[1],
-	md: typography.scale[2],
-	lg: typography.scale[3],
+	sm: typography.scale[0],
+	md: typography.scale[1],
+	lg: typography.scale[2],
 }
 
 let makeButtonStyles = (
@@ -95,7 +96,7 @@ export let Button = <T extends ElementType = "button">(
 		as,
 		css,
 		className,
-		color = "neutral",
+		color = use(ThemeContext).color,
 		size,
 		ghost,
 		invert,
@@ -119,43 +120,27 @@ export let Button = <T extends ElementType = "button">(
 		[compiledBtnStyles, css, color, size, ghost, pending]
 	)
 
-	let classes = `${fontScale[size ?? "md"]} ${className ?? ""}`
+	let classes = `${size ? fontScale[size ?? "md"] : ""} ${className ?? ""}`
 
-	if(tooltip) {
-		return (
-			<Tooltip content={tooltip}>
-				<Box
-					as={as ?? "button"}
-					{...restProps}
-					className={classes}
-					css={_css}
-				>
-					{children}
-					<AnimatePresence>
-						{pending && (
-							<ButtonSpinner color={color} />
-						)}
-					</AnimatePresence>
-				</Box>
-			</Tooltip>
-		)
-	}
-
-	return (
+	return withTooltip(
 		<Box
 			as={as ?? "button"}
 			{...restProps}
 			className={classes}
 			css={_css}
 		>
-			{children}
+			<WithTheme color={color}>
+				{children}
+			</WithTheme>
 			<AnimatePresence>
 				{pending && (
 					<ButtonSpinner color={color} />
 				)}
 			</AnimatePresence>
-		</Box>
-	);
+		</Box>,
+		tooltip,
+		color,
+	)
 }
 
 let ButtonSpinner = ({ color }: { color: string }) => {

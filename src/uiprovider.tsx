@@ -39,6 +39,7 @@ export let defaultHooks = {
 	optional: "&:optional",
 	firstChild: "&:first-child",
 	lastChild: "&:last-child",
+	visited: "&:visited",
 	"[data-state='on']": "[data-state='on']",
 	"[data-state='off']": "[data-state='off']",
 } satisfies Record<string, string>
@@ -57,6 +58,7 @@ export interface ExtendedCSSProperties extends CSSProperties {
 	optional?: ExtendedCSSProperties,
 	firstChild?: ExtendedCSSProperties,
 	lastChild?: ExtendedCSSProperties,
+	visited?: ExtendedCSSProperties,
 	"[data-state='on']"?: ExtendedCSSProperties,
 	"[data-state='off']"?: ExtendedCSSProperties,
 }
@@ -191,7 +193,7 @@ export let UIProvider = (props: PropsWithChildren<{
 
 	return <>
 		<style dangerouslySetInnerHTML={{__html: styleSheet() }} />
-		<Tooltip.Provider delayDuration={825}>
+		<Tooltip.Provider delayDuration={250}>
 			<StyleContext.Provider value={ctx}>
 				{props.children}
 			</StyleContext.Provider>

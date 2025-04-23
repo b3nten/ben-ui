@@ -13,16 +13,19 @@
     --color-#{$color-name}-bg-hover: var(--color-#{$color-name}-200);
     --color-#{$color-name}-bg-active: var(--color-#{$color-name}-300);
     --color-#{$color-name}-bg-disabled: var(--color-#{$color-name}-50);
+    --color-#{$color-name}-bg-highlighted: var(--color-#{$color-name}-200);
 
     --color-#{$color-name}-fg-normal: var(--color-#{$color-name}-800);
     --color-#{$color-name}-fg-hover: var(--color-#{$color-name}-700);
     --color-#{$color-name}-fg-active: var(--color-#{$color-name}-600);
     --color-#{$color-name}-fg-disabled: var(--color-#{$color-name}-300);
+    --color-#{$color-name}-fg-highlighted: var(--color-#{$color-name}-500);
 
-    --color-#{$color-name}-text-normal: var(--color-#{$color-name}-900);
-    --color-#{$color-name}-text-hover: var(--color-#{$color-name}-800);
-    --color-#{$color-name}-text-active: var(--color-#{$color-name}-800);
+    --color-#{$color-name}-text-normal: var(--color-#{$color-name}-800);
+    --color-#{$color-name}-text-hover: var(--color-#{$color-name}-700);
+    --color-#{$color-name}-text-active: var(--color-#{$color-name}-700);
     --color-#{$color-name}-text-disabled: var(--color-#{$color-name}-800);
+    --color-#{$color-name}-text-highlighted: var(--color-#{$color-name}-500);
 }
 
 @mixin spacing($name, $value) {
@@ -33,8 +36,14 @@
     --typography-size-#{$name}: calc(var(--scale) * #{$size});
     --typography-height-#{$name}: calc(var(--scale) * #{$lineheight});
     --typography-spacing-#{$name}: calc(var(--scale) * #{$spacing});
+    .typography-scale-#{$name},
     .typography-scale-#{$name} {
         font-size: var(--typography-size-#{$name});
+        line-height: var(--typography-height-#{$name});
+        letter-spacing: var(--typography-spacing-#{$name});
+    }
+    .typography-scale-#{$name} code {
+        font-size: calc(var(--typography-size-#{$name}) * .85);
         line-height: var(--typography-height-#{$name});
         letter-spacing: var(--typography-spacing-#{$name});
     }
@@ -61,8 +70,8 @@
     --color-neutral-500: rgb(161, 155, 162);
     --color-neutral-600: rgb(157, 154, 166);
     --color-neutral-700: rgb(139, 138, 148);
-    --color-neutral-800: rgb(112, 111, 120);
-    --color-neutral-900: rgb(60, 59, 64);
+    --color-neutral-800: rgb(71, 71, 71);
+    --color-neutral-900: rgb(51, 51, 51);
     --color-neutral-950: rgb(42, 41, 46);
 
     @include generate-color-vars('neutral');
@@ -153,7 +162,7 @@
 
     font-family: var(--bui-serif);
     color: var(--color-neutral-text-normal);
-    background-color: var(--color-neutral-50);
+    background-color: var(--color-neutral-surface);
 }
 
 // Calculated values
@@ -171,8 +180,8 @@
     @include spacing("10", 5rem);
 
     @include typography-scale("0", 0.875rem, 0em, .5rem);
-    @include typography-scale("1", 1rem, 0em, .75rem);
-    @include typography-scale("2", 1.25rem, -0.005em, 1rem);
+    @include typography-scale("1", 1.25rem, 0em, .75rem);
+    @include typography-scale("2", 1.5rem, -0.005em, 1rem);
     @include typography-scale("3", 1.75rem, -0.00625em, 2rem);
     @include typography-scale("4", 2.25rem, -0.0075em, 1.95rem);
     @include typography-scale("5", 3rem, -0.01em, 2.85rem);
@@ -181,6 +190,8 @@
     @include typography-scale("8", 6rem, -0.025em, 5.5rem);
     @include typography-scale("9", 7rem, -0.025em, 6.5rem);
     @include typography-scale("10", 8rem, -0.025em, 7.5rem);
+
+    --typography-scale: var(--typography-size-1);
 }
 
 .spinner {
@@ -200,5 +211,14 @@
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+.link {
+    text-decoration: underline;
+    color: var(--current-color);
+    &:visited {
+        color: var(--current-visited-color);
+        text-decoration: underline;
     }
 }

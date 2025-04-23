@@ -116,10 +116,10 @@ export const typography = {
 	}
 }
 
-export let color = (args: {
+export let makeColor = (args: {
 	name: string,
 	usage: "fg" | "bg" | "text" | "surface" | "overlay" | "shadow"
-	action?: "hover" | "active" | "normal" | "disabled",
+	action?: "hover" | "active" | "normal" | "disabled" | "highlighted",
 	variant?: "string",
 	opacity?: number,
 }) =>
