@@ -2,6 +2,7 @@ import { Tooltip as TooltipImpl } from "radix-ui";
 import { PropsWithChildren, ReactNode, useState } from "react";
 import { AnimatePresence } from "motion/react";
 import { Box } from "./mod.ts"
+import { color, spacing } from "./tokens.ts";
 
 export let Root = TooltipImpl.Root;
 export let Trigger = TooltipImpl.Trigger;
@@ -52,16 +53,28 @@ export let Tooltip = (props: PropsWithChildren<{ content: ReactNode }>) => {
 								transition={{ type: "spring", duration: 0.3, bounce: .55,  }}
 								css={{
 									transformOrigin: "var(--radix-tooltip-content-transform-origin)",
-									backgroundColor: "var(--color-neutral-bg-normal)",
-									color: "var(--color-neutral-text-normal)",
-									border: "1px solid var(--color-neutral-fg-normal)",
-									padding: "0.5rem 1rem",
+									backgroundColor: color({
+										name: "neutral",
+										usage: "overlay"
+									}),
+									color: color({
+										name: "neutral",
+										usage: "text",
+									}),
+									border: `1px solid ${color({
+										name: "neutral",
+										usage: "fg",
+									})}`,
+									padding: `${spacing[1]} ${spacing[2]}`,
 									borderRadius: "999px",
 								}}
 							>
 								{content}
 								<TooltipImpl.Arrow
-									fill={"var(--color-neutral-fg-normal)"}
+									fill={color({
+										name: "neutral",
+										usage: "fg",
+									})}
 								/>
 							</Box>
 						</TooltipImpl.Content>

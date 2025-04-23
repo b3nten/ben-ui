@@ -112,10 +112,13 @@ export const typography = {
 	}
 }
 
-export let pickColor = (args: {
+export let color = (args: {
 	name: string,
-	usage: "fg" | "bg" | "text",
+	usage: "fg" | "bg" | "text" | "surface" | "overlay" | "shadow"
 	action?: "hover" | "active" | "normal" | "disabled",
 	variant?: "string",
 	opacity?: number,
-}) => args.opacity ? `color-mix(in srgb, var(--color-${args.name}-${args.usage}-${args.action ?? "base"}${args.variant ? `-${args.variant}` : ""}), rgba(0, 0, 0, ${args.opacity}%))` : `var(--color-${args.name}-${args.usage}-${args.action ?? "base"}${args.variant ? `-${args.variant}` : ""})`
+}) =>
+	["surface", "overlay", "shadow"].includes(args.usage) ?
+	`var(--color-${args.name}-${args.usage}${args.variant ? `-${args.variant}` : ""})` :
+	args.opacity ? `color-mix(in srgb, var(--color-${args.name}-${args.usage}-${args.action ?? "normal"}${args.variant ? `-${args.variant}` : ""}), rgba(0, 0, 0, ${args.opacity}%))` : `var(--color-${args.name}-${args.usage}-${args.action ?? "normal"}${args.variant ? `-${args.variant}` : ""})`

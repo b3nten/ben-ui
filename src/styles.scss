@@ -182,3 +182,23 @@
     @include typography-scale("9", 3.75rem, -0.025em, 3rem);
     @include typography-scale("10", 4.5rem, -0.025em, 3.5rem);
 }
+
+.spinner {
+    aspect-ratio: 1;
+    height: 75%;
+    border: 2px solid var(--spinner-color);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: spinner-rotation 1s linear infinite;
+}
+
+@keyframes spinner-rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
