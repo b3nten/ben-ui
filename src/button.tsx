@@ -1,34 +1,32 @@
+import { AnimatePresence } from "motion/react";
+import { type CSSProperties, type ElementType, use, useMemo } from "react";
 import { Box, type BoxProps } from "./box.tsx";
-import { CSSProperties, ElementType, use, useMemo } from "react";
-import { CSSSelectors, StyleContext } from "./uiprovider.tsx";
+import { ThemeContext } from "./themeprovider.tsx";
 import { makeColor as colorFn, spacing, typography, xStack } from "./tokens.ts";
 import { withTooltip } from "./tooltip.tsx";
-import { AnimatePresence } from "motion/react";
-import { useCache, WithTheme } from "./util.ts";
-import { ThemeContext } from "./themeprovider.tsx";
+import { type CSSSelectors, StyleContext } from "./uiprovider.tsx";
+import { WithTheme, useCache } from "./util.ts";
 
-let ghost = (g: any, s: string) => g ? "transparent" : s
+let ghost = (g: any, s: string) => (g ? "transparent" : s);
 
 let padding = {
-	sm: `${spacing["2"]} ${spacing["2"]}`,
-	md: `${spacing["2"]} ${spacing["3"]}`,
-	lg: `${spacing["3"]} ${spacing["6"]}`,
-}
+	sm: `${spacing["1"]} ${spacing["2"]}`,
+	md: `${spacing["1"]} ${spacing["3"]}`,
+	lg: `${spacing["2"]} ${spacing["6"]}`,
+};
 
 let fontScale = {
 	sm: typography.scale[0],
 	md: typography.scale[1],
 	lg: typography.scale[2],
-}
+};
 
-let makeButtonStyles = (
-	args: {
-		size: "sm" | "md" | "lg",
-		color: string,
-		ghost?: boolean,
-		pending?: boolean,
-	}
-): Partial<CSSSelectors> => ({
+let makeButtonStyles = (args: {
+	size: "sm" | "md" | "lg";
+	color: string;
+	ghost?: boolean;
+	pending?: boolean;
+}): Partial<CSSSelectors> => ({
 	position: "relative",
 	overflow: "hidden",
 	padding: padding[args.size],
@@ -37,36 +35,45 @@ let makeButtonStyles = (
 	fontFamily: typography.style.sansSerif,
 	backgroundColor: ghost(
 		args.ghost,
-		colorFn({ name: args.color, usage: "bg", action: "normal" })
+		colorFn({ name: args.color, usage: "bg", action: "normal" }),
 	),
 	color: colorFn({ name: args.color, usage: "text", action: "normal" }),
 	border: `1px solid ${ghost(args.ghost, colorFn({ name: args.color, usage: "fg", action: "normal" }))}`,
 	pointerEvents: args.pending ? "none" : "auto",
 	cursor: args.pending ? "not-allowed" : "pointer",
 	hover: {
-		backgroundColor: colorFn({ name: args.color, usage: "bg", action: "hover" }),
+		backgroundColor: colorFn({
+			name: args.color,
+			usage: "bg",
+			action: "hover",
+		}),
 		color: colorFn({ name: args.color, usage: "text", action: "hover" }),
-		border:
-			`1px solid ${ghost(args.ghost, colorFn({ name: args.color, usage: "fg", action: "hover" }))}`,
+		border: `1px solid ${ghost(args.ghost, colorFn({ name: args.color, usage: "fg", action: "hover" }))}`,
 	},
 	active: {
-		backgroundColor: colorFn({ name: args.color, usage: "bg", action: "active" }),
+		backgroundColor: colorFn({
+			name: args.color,
+			usage: "bg",
+			action: "active",
+		}),
 		color: colorFn({ name: args.color, usage: "text", action: "active" }),
-		border:
-			`1px solid ${ghost(args.ghost, colorFn({ name: args.color, usage: "fg", action: "active" }))}`,
+		border: `1px solid ${ghost(args.ghost, colorFn({ name: args.color, usage: "fg", action: "active" }))}`,
 	},
 	disabled: {
-		backgroundColor: colorFn({ name: args.color, usage: "bg", action: "disabled" }),
+		backgroundColor: colorFn({
+			name: args.color,
+			usage: "bg",
+			action: "disabled",
+		}),
 		color: colorFn({ name: args.color, usage: "text", action: "disabled" }),
-		border:
-			`1px solid ${ghost(args.ghost, colorFn({ name: args.color, usage: "fg", action: "disabled" }))}`,
+		border: `1px solid ${ghost(args.ghost, colorFn({ name: args.color, usage: "fg", action: "disabled" }))}`,
 		cursor: "not-allowed",
 	},
 	focus: {
 		outline: `2px solid ${colorFn({ name: args.color, usage: "fg", action: "normal" })}`,
 		outlineOffset: "2px",
 	},
-})
+});
 
 let makePendingStyles = (color: string) => ({
 	zIndex: 10,
@@ -78,7 +85,7 @@ let makePendingStyles = (color: string) => ({
 		action: "hover",
 	}),
 	...xStack(),
-})
+});
 
 export type ButtonProps<T extends ElementType = "button"> = BoxProps<T> & {
 	color?: string;
@@ -87,10 +94,10 @@ export type ButtonProps<T extends ElementType = "button"> = BoxProps<T> & {
 	invert?: boolean;
 	pending?: boolean;
 	tooltip?: string;
-}
+};
 
 export let Button = <T extends ElementType = "button">(
-	props: ButtonProps<T>
+	props: ButtonProps<T>,
 ) => {
 	let {
 		as,
@@ -106,45 +113,41 @@ export let Button = <T extends ElementType = "button">(
 		...restProps
 	} = props;
 
-	let cssFn = use(StyleContext).css
+	let cssFn = use(StyleContext).css;
 
-	let compiledBtnStyles = useCache("buttonStyles", () => makeButtonStyles({
-		size: size ?? "md",
-		color,
-		ghost,
-		pending,
-	}), [color, size, ghost, pending])
+	let compiledBtnStyles = useCache(
+		"buttonStyles",
+		() =>
+			makeButtonStyles({
+				size: size ?? "md",
+				color,
+				ghost,
+				pending,
+			}),
+		[color, size, ghost, pending],
+	);
 
-	let _css = useMemo(() =>
-		cssFn(compiledBtnStyles, css),
-		[compiledBtnStyles, css, color, size, ghost, pending]
-	)
+	let _css = useMemo(
+		() => cssFn(compiledBtnStyles, css),
+		[compiledBtnStyles, css, color, size, ghost, pending],
+	);
 
-	let classes = `${size ? fontScale[size ?? "md"] : ""} ${className ?? ""}`
+	let classes = `${size ? fontScale[size ?? "md"] : ""} ${className ?? ""}`;
 
 	return withTooltip(
-		<Box
-			as={as ?? "button"}
-			{...restProps}
-			className={classes}
-			css={_css}
-		>
-			<WithTheme color={color}>
-				{children}
-			</WithTheme>
+		<Box as={as ?? "button"} {...restProps} className={classes} css={_css}>
+			<WithTheme color={color}>{children}</WithTheme>
 			<AnimatePresence>
-				{pending && (
-					<ButtonSpinner color={color} />
-				)}
+				{pending && <ButtonSpinner color={color} />}
 			</AnimatePresence>
 		</Box>,
 		tooltip,
 		color,
-	)
-}
+	);
+};
 
 let ButtonSpinner = ({ color }: { color: string }) => {
-	let cssFn = use(StyleContext).css
+	let cssFn = use(StyleContext).css;
 	return (
 		<Box
 			animated
@@ -155,13 +158,15 @@ let ButtonSpinner = ({ color }: { color: string }) => {
 		>
 			<span
 				className="spinner"
-				style={{
-					"--spinner-color": colorFn({
-						name: color,
-						usage: "fg",
-					})
-				} as Partial<CSSProperties>}
+				style={
+					{
+						"--spinner-color": colorFn({
+							name: color,
+							usage: "fg",
+						}),
+					} as Partial<CSSProperties>
+				}
 			/>
 		</Box>
-	)
-}
+	);
+};

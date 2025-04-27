@@ -1,41 +1,28 @@
+import { type MotionProps, motion } from "motion/react";
 import {
 	type ComponentPropsWithRef,
 	type ElementType,
 	createElement,
-	use, useMemo,
+	use,
+	useMemo,
 } from "react";
-import {
-	CSSSelectors,
-	StyleContext
-} from "./uiprovider.tsx";
-import {
-	type DistributiveOmit,
-	useMergedStyles
-} from "./util.ts";
-import { type MotionProps, motion } from "motion/react";
+import { type CSSSelectors, StyleContext } from "./uiprovider.tsx";
+import { type DistributiveOmit, useMergedStyles } from "./util.ts";
 
-type PolymorphicProps<
-	T extends ElementType = ElementType,
-> = {
-	as?: T,
-	css?: CSSSelectors,
-}
+type PolymorphicProps<T extends ElementType = ElementType> = {
+	as?: T;
+	css?: CSSSelectors;
+};
 
-export type BoxProps<
-	C extends ElementType,
-	Props = {},
-> =
-	Props
-	& PolymorphicProps<C>
-	& DistributiveOmit<
+export type BoxProps<C extends ElementType, Props = {}> = Props &
+	PolymorphicProps<C> &
+	DistributiveOmit<
 		ComponentPropsWithRef<C>,
 		keyof Props | keyof PolymorphicProps<C>
-	>
-	& {
-		animated?: boolean
-		scale?: number | string
-	}
-	& Omit<
+	> & {
+		animated?: boolean;
+		scale?: number | string;
+	} & Omit<
 		MotionProps,
 		| "style"
 		| "children"
@@ -44,11 +31,9 @@ export type BoxProps<
 		| "data-framer-appear-id"
 		| "data-framer-portal-id"
 		| "custom"
-	>
+	>;
 
-export let Box = <T extends ElementType = "div">(
-	props: BoxProps<T>
-) => {
+export let Box = <T extends ElementType = "div">(props: BoxProps<T>) => {
 	let {
 		css,
 		style,
@@ -64,12 +49,9 @@ export let Box = <T extends ElementType = "div">(
 		useMemo(() => ({ ["--scale"]: scale }), [scale]),
 	);
 
-	if(motionEnabled) {
-		return createElement(
-			motion[(as ?? "div") as "div"],
-			restProps,
-		)
+	if (motionEnabled) {
+		return createElement(motion[(as ?? "div") as "div"], restProps);
 	}
 
-	return createElement(as, restProps)
-}
+	return createElement(as, restProps);
+};

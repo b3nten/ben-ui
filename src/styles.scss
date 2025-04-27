@@ -34,6 +34,10 @@
         --spacing-#{$name}: calc(var(--scale) * #{$value});
     }
 
+    @mixin sizing($name, $value) {
+        --size-#{$name}: calc(var(--scale) * #{$value});
+    }
+
     @mixin typography-scale($name, $size, $spacing, $lineheight) {
         --typography-size-#{$name}: calc(var(--scale) * #{$size});
         --typography-height-#{$name}: calc(var(--scale) * #{$lineheight});
@@ -184,6 +188,28 @@
         @include spacing("8", 3rem);
         @include spacing("9", 4rem);
         @include spacing("10", 5rem);
+
+        @include sizing("0", 0);
+        @include sizing("1", 0.25rem);
+        @include sizing("2", 0.5rem);
+        @include sizing("3", 0.75rem);
+        @include sizing("4", 1rem);
+        @include sizing("5", 1.25rem);
+        @include sizing("6", 1.5rem);
+        @include sizing("7", 1.75rem);
+        @include sizing("8", 2rem);
+        @include sizing("9", 2.5rem);
+        @include sizing("10", 3rem);
+        @include sizing("11", 3.5rem);
+        @include sizing("12", 4rem);
+        @include sizing("13", 4.5rem);
+        @include sizing("14", 5rem);
+        @include sizing("15", 5.5rem);
+        @include sizing("16", 6rem);
+        @include sizing("17", 7rem);
+        @include sizing("18", 8rem);
+        @include sizing("19", 9rem);
+        @include sizing("20", 10rem);
 
         @include typography-scale("0", 0.875rem, 0em, 1.25);
         @include typography-scale("1", 1.125rem, 0em, 1.25);

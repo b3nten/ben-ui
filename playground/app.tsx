@@ -1,4 +1,4 @@
-import { Blockquote, Box, Button, Code, Heading, Link, Text, Textarea, Textbox } from "../src/mod.ts";
+import { Blockquote, Box, Button, Code, Heading, Link, Text, Textarea, Textbox, Dialog } from "../src/mod.ts";
 import { yStack } from "../src/tokens.ts";
 import { useState } from "react";
 import { Search, SunIcon } from "lucide-react";
@@ -98,9 +98,23 @@ export default () => {
 			<Button color={"foam"} tooltip={"hello :)"} size={"md"} scale={1.125}>
 				Scale 1.125
 			</Button>
-			<Button color={"pine"} tooltip={"hello :)"} size={"lg"}>
-				Size lg
-			</Button>
+			<Dialog.Root>
+				<Dialog.Trigger asChild>
+					<Button color={"pine"} tooltip={"hello :)"} size={"lg"}>
+						open dialog
+					</Button>
+				</Dialog.Trigger>
+				<Dialog.Content
+					title={"Hello"}
+					description={"This is a description"}
+				>
+					<Dialog.Close asChild>
+						<Button color={"rose"}>
+							Close
+						</Button>
+					</Dialog.Close>
+				</Dialog.Content>
+			</Dialog.Root>
 		</Box>
 	)
 }
