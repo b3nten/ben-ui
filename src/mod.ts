@@ -1,5 +1,6 @@
 export { useCss, StyleContext, defaultHooks, colorModeQuery, UIProvider } from "./uiprovider.tsx"
 export { useMergedStyles } from "./util"
+export { ThemeContext, type ThemeProps, ThemeProvider } from "./themeprovider.tsx"
 
 export { type BoxProps, Box } from "./box.tsx"
 export { type ButtonProps, Button } from "./button.tsx"

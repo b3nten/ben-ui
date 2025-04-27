@@ -8,7 +8,7 @@ import { ThemeContext } from "./themeprovider.tsx";
 
 export type HeadingProps<T extends ElementType = "button"> = BoxProps<T> & {
 	color?: string;
-	scale?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+	size?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 	tooltip?: string;
 }
 
@@ -18,7 +18,7 @@ export let Heading = <T extends ElementType = "h1">(props: HeadingProps<T>) => {
 		css,
 		className,
 		color = use(ThemeContext).color,
-		scale,
+		size,
 		tooltip,
 		children,
 		...restProps
@@ -38,7 +38,7 @@ export let Heading = <T extends ElementType = "h1">(props: HeadingProps<T>) => {
 		[compiledHeadingStyles, css]
 	)
 
-	let classes = `${typography.scale[props.scale ?? "10"]} ${className ?? ""}`
+	let classes = `${typography.scale[props.size ?? "10"]} ${className ?? ""}`
 
 	return withTooltip(
 		<Box
@@ -58,7 +58,7 @@ export let Heading = <T extends ElementType = "h1">(props: HeadingProps<T>) => {
 
 export type TextProps<T extends ElementType = "button"> = BoxProps<T> & {
 	color?: string;
-	scale?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+	size?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 	tooltip?: string;
 }
 
@@ -68,7 +68,7 @@ export let Text = <T extends ElementType = "p">(props: TextProps<T>) => {
 		css,
 		className,
 		color = use(ThemeContext).color,
-		scale,
+		size,
 		tooltip,
 		children,
 		...restProps
@@ -88,7 +88,7 @@ export let Text = <T extends ElementType = "p">(props: TextProps<T>) => {
 		[compiledTextStyles, css]
 	)
 
-	let classes = `${scale ? typography.scale[scale] : ""} ${className ?? ""}`
+	let classes = `${size ? typography.scale[size] : ""} ${className ?? ""}`
 
 	return withTooltip(
 		<Box
@@ -108,7 +108,7 @@ export let Text = <T extends ElementType = "p">(props: TextProps<T>) => {
 
 export type LinkProps<T extends ElementType = "a"> = BoxProps<T> & {
 	color?: string;
-	scale?: 0 | 1 | 2;
+	size?: 0 | 1 | 2;
 	tooltip?: string;
 }
 
@@ -118,13 +118,13 @@ export let Link = <T extends ElementType = "a">(props: TextProps<T>) => {
 		css,
 		className,
 		color = use(ThemeContext).color,
-		scale,
+		size,
 		tooltip,
 		children,
 		...restProps
 	} = props;
 
-	let classes = `link ${scale ? typography.scale[scale] : ""} ${className ?? ""}`
+	let classes = `link ${size ? typography.scale[size] : ""} ${className ?? ""}`
 
 	let cssFn = use(StyleContext).css
 
@@ -171,7 +171,6 @@ export let Code = <T extends ElementType = "code">(props: CodeProps<T>) => {
 		css,
 		className,
 		color = use(ThemeContext).color,
-		scale,
 		tooltip,
 		children,
 		...restProps
@@ -217,7 +216,7 @@ export let Code = <T extends ElementType = "code">(props: CodeProps<T>) => {
 export type BlockquoteProps<T extends ElementType = "blockquote"> = BoxProps<T> & {
 	color?: string;
 	tooltip?: string;
-	scale?: 0 | 1 | 2 | 3;
+	size?: 0 | 1 | 2 | 3;
 	children: string;
 	maxWidth?: string;
 }
@@ -228,7 +227,7 @@ export let Blockquote = <T extends ElementType = "blockquote">(props: Blockquote
 		css,
 		className,
 		color = use(ThemeContext).color,
-		scale,
+		size,
 		maxWidth = "30rem",
 		tooltip,
 		children,
@@ -267,7 +266,7 @@ export let Blockquote = <T extends ElementType = "blockquote">(props: Blockquote
 		[compiledCodeStyles, css]
 	)
 
-	let classes = `${scale ? typography.scale[scale] : ""} ${className ?? ""}`
+	let classes = `${size ? typography.scale[size] : ""} ${className ?? ""}`
 
 	return withTooltip(
 		<Box

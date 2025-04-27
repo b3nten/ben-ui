@@ -1,224 +1,228 @@
+@layer reset, theme;
 @import "./reset.css";
 
 @import url('https://fonts.googleapis.com/css2?family=Domine:wght@400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
-@mixin generate-color-vars($color-name) {
-    --color-#{$color-name}-surface: var(--color-#{$color-name}-50);
-    --color-#{$color-name}-overlay: var(--color-#{$color-name}-200);
-    --color-#{$color-name}-shadow: var(--color-#{$color-name}-400);
+@layer theme {
+    @mixin generate-color-vars($color-name) {
+        --color-#{$color-name}-surface: var(--color-#{$color-name}-50);
+        --color-#{$color-name}-overlay: var(--color-#{$color-name}-200);
+        --color-#{$color-name}-shadow: var(--color-#{$color-name}-400);
 
-    --color-#{$color-name}-bg-normal: var(--color-#{$color-name}-100);
-    --color-#{$color-name}-bg-hover: var(--color-#{$color-name}-200);
-    --color-#{$color-name}-bg-active: var(--color-#{$color-name}-300);
-    --color-#{$color-name}-bg-disabled: var(--color-#{$color-name}-50);
-    --color-#{$color-name}-bg-highlighted: var(--color-#{$color-name}-200);
+        --color-#{$color-name}-bg-normal: var(--color-#{$color-name}-100);
+        --color-#{$color-name}-bg-hover: var(--color-#{$color-name}-200);
+        --color-#{$color-name}-bg-active: var(--color-#{$color-name}-300);
+        --color-#{$color-name}-bg-disabled: var(--color-#{$color-name}-50);
+        --color-#{$color-name}-bg-highlighted: var(--color-#{$color-name}-200);
 
-    --color-#{$color-name}-fg-normal: var(--color-#{$color-name}-800);
-    --color-#{$color-name}-fg-hover: var(--color-#{$color-name}-700);
-    --color-#{$color-name}-fg-active: var(--color-#{$color-name}-600);
-    --color-#{$color-name}-fg-disabled: var(--color-#{$color-name}-300);
-    --color-#{$color-name}-fg-highlighted: var(--color-#{$color-name}-500);
+        --color-#{$color-name}-fg-normal: var(--color-#{$color-name}-800);
+        --color-#{$color-name}-fg-hover: var(--color-#{$color-name}-700);
+        --color-#{$color-name}-fg-active: var(--color-#{$color-name}-600);
+        --color-#{$color-name}-fg-disabled: var(--color-#{$color-name}-300);
+        --color-#{$color-name}-fg-highlighted: var(--color-#{$color-name}-500);
 
-    --color-#{$color-name}-text-normal: var(--color-#{$color-name}-800);
-    --color-#{$color-name}-text-hover: var(--color-#{$color-name}-700);
-    --color-#{$color-name}-text-active: var(--color-#{$color-name}-700);
-    --color-#{$color-name}-text-disabled: var(--color-#{$color-name}-800);
-    --color-#{$color-name}-text-highlighted: var(--color-#{$color-name}-500);
-}
-
-@mixin spacing($name, $value) {
-    --spacing-#{$name}: calc(var(--scale) * #{$value});
-}
-
-@mixin typography-scale($name, $size, $spacing, $lineheight) {
-    --typography-size-#{$name}: calc(var(--scale) * #{$size});
-    --typography-height-#{$name}: calc(var(--scale) * #{$lineheight});
-    --typography-spacing-#{$name}: calc(var(--scale) * #{$spacing});
-    .typography-scale-#{$name},
-    .typography-scale-#{$name} {
-        font-size: var(--typography-size-#{$name});
-        line-height: var(--typography-height-#{$name});
-        letter-spacing: var(--typography-spacing-#{$name});
+        --color-#{$color-name}-text-normal: var(--color-#{$color-name}-800);
+        --color-#{$color-name}-text-hover: var(--color-#{$color-name}-700);
+        --color-#{$color-name}-text-active: var(--color-#{$color-name}-700);
+        --color-#{$color-name}-text-disabled: var(--color-#{$color-name}-800);
+        --color-#{$color-name}-text-highlighted: var(--color-#{$color-name}-500);
     }
-    .typography-scale-#{$name} code {
-        font-size: calc(var(--typography-size-#{$name}) * .85);
-        line-height: var(--typography-height-#{$name});
-        letter-spacing: var(--typography-spacing-#{$name});
+
+    @mixin spacing($name, $value) {
+        --spacing-#{$name}: calc(var(--scale) * #{$value});
     }
-}
 
-// Default values
-:root {
-    --scale: 1;
-
-    --typography-serif: 'Domine', serif;
-    --typography-sans: 'Quicksand', sans-serif;
-    --typography-mono: 'JetBrains Mono', monospace;
-
-    --typography-weight-light: 300;
-    --typography-weight-normal: 400;
-    --typography-weight-medium: 500;
-    --typography-weight-bold: 700;
-
-    --color-neutral-50: rgb(255, 250, 248);
-    --color-neutral-100: rgb(247, 243, 237);
-    --color-neutral-200: rgb(237, 234, 230);
-    --color-neutral-300: rgb(222, 219, 215);
-    --color-neutral-400: rgb(212, 208, 203);
-    --color-neutral-500: rgb(161, 155, 162);
-    --color-neutral-600: rgb(157, 154, 166);
-    --color-neutral-700: rgb(139, 138, 148);
-    --color-neutral-800: rgb(71, 71, 71);
-    --color-neutral-900: rgb(51, 51, 51);
-    --color-neutral-950: rgb(42, 41, 46);
-
-    @include generate-color-vars('neutral');
-
-    --color-rose-50: #fcf3f2;
-    --color-rose-100: #fae6e6;
-    --color-rose-200: #f5cdcc;
-    --color-rose-300: #f0b5b3;
-    --color-rose-400: #ea9a97;
-    --color-rose-500: #df6662;
-    --color-rose-600: #d4302b;
-    --color-rose-700: #a12521;
-    --color-rose-800: #6a1815;
-    --color-rose-900: #370d0b;
-    --color-rose-950: #190605;
-
-    @include generate-color-vars('rose');
-
-    --color-pine-50: #ecf5f8;
-    --color-pine-100: #d6e9f0;
-    --color-pine-200: #b0d5e3;
-    --color-pine-300: #86bed4;
-    --color-pine-400: #5da8c6;
-    --color-pine-500: #3e8fb0;
-    --color-pine-600: #31728c;
-    --color-pine-700: #25566a;
-    --color-pine-800: #193b48;
-    --color-pine-900: #0c1c22;
-    --color-pine-950: #070f13;
-
-    @include generate-color-vars('pine');
-
-    --color-foam-50: #f4fafb;
-    --color-foam-100: #edf6f8;
-    --color-foam-200: #d7ebef;
-    --color-foam-300: #c4e3e8;
-    --color-foam-400: #aed8df;
-    --color-foam-500: #9ccfd8;
-    --color-foam-600: #65b5c2;
-    --color-foam-700: #3f92a1;
-    --color-foam-800: #2a606a;
-    --color-foam-900: #163237;
-    --color-foam-950: #0a171a;
-
-    @include generate-color-vars('foam');
-
-    --color-iris-50: #faf7fd;
-    --color-iris-100: #f4effb;
-    --color-iris-200: #e7dbf5;
-    --color-iris-300: #dccbf1;
-    --color-iris-400: #ceb7eb;
-    --color-iris-500: #c4a7e7;
-    --color-iris-600: #9967d5;
-    --color-iris-700: #7133bc;
-    --color-iris-800: #4b227c;
-    --color-iris-900: #261240;
-    --color-iris-950: #130920;
-
-    @include generate-color-vars('iris');
-
-    --color-gold-50: #fef8f1;
-    --color-gold-100: #fdf2e2;
-    --color-gold-200: #fce7ca;
-    --color-gold-300: #fadaae;
-    --color-gold-400: #f8cd91;
-    --color-gold-500: #f6c177;
-    --color-gold-600: #f1a131;
-    --color-gold-700: #ce7e0e;
-    --color-gold-800: #8b5509;
-    --color-gold-900: #432904;
-    --color-gold-950: #211402;
-
-    @include generate-color-vars('gold');
-
-    --color-love-50: #fdf2f5;
-    --color-love-100: #fbe4eb;
-    --color-love-200: #f7c5d3;
-    --color-love-300: #f3aabf;
-    --color-love-400: #ef8ba7;
-    --color-love-500: #eb6f92;
-    --color-love-600: #e23163;
-    --color-love-700: #b81a46;
-    --color-love-800: #79112e;
-    --color-love-900: #3f0918;
-    --color-love-950: #1f040c;
-
-    @include generate-color-vars('love');
-
-    font-family: var(--bui-serif);
-    color: var(--color-neutral-text-normal);
-    background-color: var(--color-neutral-surface);
-}
-
-// Calculated values
-* {
-    @include spacing("0", 0);
-    @include spacing("1", 0.25rem);
-    @include spacing("2", 0.5rem);
-    @include spacing("3", 0.75rem);
-    @include spacing("4", 1rem);
-    @include spacing("5", 1.5rem);
-    @include spacing("6", 2rem);
-    @include spacing("7", 2.5rem);
-    @include spacing("8", 3rem);
-    @include spacing("9", 4rem);
-    @include spacing("10", 5rem);
-
-    @include typography-scale("0", 0.875rem, 0em, .5rem);
-    @include typography-scale("1", 1.25rem, 0em, .75rem);
-    @include typography-scale("2", 1.5rem, -0.005em, 1rem);
-    @include typography-scale("3", 1.75rem, -0.00625em, 2rem);
-    @include typography-scale("4", 2.25rem, -0.0075em, 1.95rem);
-    @include typography-scale("5", 3rem, -0.01em, 2.85rem);
-    @include typography-scale("6", 4rem, -0.025em, 3.5rem);
-    @include typography-scale("7", 5rem, -0.025em, 4.5rem);
-    @include typography-scale("8", 6rem, -0.025em, 5.5rem);
-    @include typography-scale("9", 7rem, -0.025em, 6.5rem);
-    @include typography-scale("10", 8rem, -0.025em, 7.5rem);
-
-    --typography-scale: var(--typography-size-1);
-}
-
-.spinner {
-    aspect-ratio: 1;
-    height: 75%;
-    border: 2px solid var(--spinner-color);
-    border-bottom-color: transparent;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: spinner-rotation 1s linear infinite;
-}
-
-@keyframes spinner-rotation {
-    0% {
-        transform: rotate(0deg);
+    @mixin typography-scale($name, $size, $spacing, $lineheight) {
+        --typography-size-#{$name}: calc(var(--scale) * #{$size});
+        --typography-height-#{$name}: calc(var(--scale) * #{$lineheight});
+        --typography-spacing-#{$name}: calc(var(--scale) * #{$spacing});
+        .typography-scale-#{$name},
+        .typography-scale-#{$name} {
+            font-size: var(--typography-size-#{$name});
+            line-height: var(--typography-height-#{$name});
+            letter-spacing: var(--typography-spacing-#{$name});
+        }
+        .typography-scale-#{$name} code {
+            font-size: calc(var(--typography-size-#{$name}) * .85);
+            line-height: var(--typography-height-#{$name});
+            letter-spacing: var(--typography-spacing-#{$name});
+        }
     }
-    100% {
-        transform: rotate(360deg);
-    }
-}
 
-.link {
-    text-decoration: underline;
-    color: var(--current-color);
-    &:visited {
-        color: var(--current-visited-color);
+    // Default values
+    :root {
+        --scale: 1;
+
+        --typography-serif: 'Domine', serif;
+        --typography-sans: 'Quicksand', sans-serif;
+        --typography-mono: 'JetBrains Mono', monospace;
+
+        --typography-weight-light: 300;
+        --typography-weight-normal: 400;
+        --typography-weight-medium: 500;
+        --typography-weight-bold: 700;
+
+        --color-neutral-50: rgb(255, 250, 248);
+        --color-neutral-100: rgb(247, 243, 237);
+        --color-neutral-200: rgb(237, 234, 230);
+        --color-neutral-300: rgb(222, 219, 215);
+        --color-neutral-400: rgb(212, 208, 203);
+        --color-neutral-500: rgb(161, 155, 162);
+        --color-neutral-600: rgb(157, 154, 166);
+        --color-neutral-700: rgb(139, 138, 148);
+        --color-neutral-800: rgb(71, 71, 71);
+        --color-neutral-900: rgb(51, 51, 51);
+        --color-neutral-950: rgb(42, 41, 46);
+
+        @include generate-color-vars('neutral');
+
+        --color-rose-50: #fcf3f2;
+        --color-rose-100: #fae6e6;
+        --color-rose-200: #f5cdcc;
+        --color-rose-300: #f0b5b3;
+        --color-rose-400: #ea9a97;
+        --color-rose-500: #df6662;
+        --color-rose-600: #d4302b;
+        --color-rose-700: #a12521;
+        --color-rose-800: #6a1815;
+        --color-rose-900: #370d0b;
+        --color-rose-950: #190605;
+
+        @include generate-color-vars('rose');
+
+        --color-pine-50: #ecf5f8;
+        --color-pine-100: #d6e9f0;
+        --color-pine-200: #b0d5e3;
+        --color-pine-300: #86bed4;
+        --color-pine-400: #5da8c6;
+        --color-pine-500: #3e8fb0;
+        --color-pine-600: #31728c;
+        --color-pine-700: #25566a;
+        --color-pine-800: #193b48;
+        --color-pine-900: #0c1c22;
+        --color-pine-950: #070f13;
+
+        @include generate-color-vars('pine');
+
+        --color-foam-50: #f4fafb;
+        --color-foam-100: #edf6f8;
+        --color-foam-200: #d7ebef;
+        --color-foam-300: #c4e3e8;
+        --color-foam-400: #aed8df;
+        --color-foam-500: #9ccfd8;
+        --color-foam-600: #65b5c2;
+        --color-foam-700: #3f92a1;
+        --color-foam-800: #2a606a;
+        --color-foam-900: #163237;
+        --color-foam-950: #0a171a;
+
+        @include generate-color-vars('foam');
+
+        --color-iris-50: #faf7fd;
+        --color-iris-100: #f4effb;
+        --color-iris-200: #e7dbf5;
+        --color-iris-300: #dccbf1;
+        --color-iris-400: #ceb7eb;
+        --color-iris-500: #c4a7e7;
+        --color-iris-600: #9967d5;
+        --color-iris-700: #7133bc;
+        --color-iris-800: #4b227c;
+        --color-iris-900: #261240;
+        --color-iris-950: #130920;
+
+        @include generate-color-vars('iris');
+
+        --color-gold-50: #fef8f1;
+        --color-gold-100: #fdf2e2;
+        --color-gold-200: #fce7ca;
+        --color-gold-300: #fadaae;
+        --color-gold-400: #f8cd91;
+        --color-gold-500: #f6c177;
+        --color-gold-600: #f1a131;
+        --color-gold-700: #ce7e0e;
+        --color-gold-800: #8b5509;
+        --color-gold-900: #432904;
+        --color-gold-950: #211402;
+
+        @include generate-color-vars('gold');
+
+        --color-love-50: #fdf2f5;
+        --color-love-100: #fbe4eb;
+        --color-love-200: #f7c5d3;
+        --color-love-300: #f3aabf;
+        --color-love-400: #ef8ba7;
+        --color-love-500: #eb6f92;
+        --color-love-600: #e23163;
+        --color-love-700: #b81a46;
+        --color-love-800: #79112e;
+        --color-love-900: #3f0918;
+        --color-love-950: #1f040c;
+
+        @include generate-color-vars('love');
+
+        font-family: var(--bui-serif);
+        color: var(--color-neutral-text-normal);
+        background-color: var(--color-neutral-surface);
+    }
+
+    // Calculated values
+    * {
+        @include spacing("0", 0);
+        @include spacing("1", 0.25rem);
+        @include spacing("2", 0.5rem);
+        @include spacing("3", 0.75rem);
+        @include spacing("4", 1rem);
+        @include spacing("5", 1.5rem);
+        @include spacing("6", 2rem);
+        @include spacing("7", 2.5rem);
+        @include spacing("8", 3rem);
+        @include spacing("9", 4rem);
+        @include spacing("10", 5rem);
+
+        @include typography-scale("0", 0.875rem, 0em, .5rem);
+        @include typography-scale("1", 1.25rem, 0em, .75rem);
+        @include typography-scale("2", 1.5rem, -0.005em, 1rem);
+        @include typography-scale("3", 1.75rem, -0.00625em, 2rem);
+        @include typography-scale("4", 2.25rem, -0.0075em, 1.95rem);
+        @include typography-scale("5", 3rem, -0.01em, 2.85rem);
+        @include typography-scale("6", 4rem, -0.025em, 3.5rem);
+        @include typography-scale("7", 5rem, -0.025em, 4.5rem);
+        @include typography-scale("8", 6rem, -0.025em, 5.5rem);
+        @include typography-scale("9", 7rem, -0.025em, 6.5rem);
+        @include typography-scale("10", 8rem, -0.025em, 7.5rem);
+
+        --typography-scale: var(--typography-size-1);
+    }
+
+    .spinner {
+        aspect-ratio: 1;
+        height: 75%;
+        border: 2px solid var(--spinner-color);
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: spinner-rotation 1s linear infinite;
+    }
+
+    @keyframes spinner-rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .link {
         text-decoration: underline;
+        color: var(--current-color);
+        &:visited {
+            color: var(--current-visited-color);
+            text-decoration: underline;
+        }
     }
 }
+

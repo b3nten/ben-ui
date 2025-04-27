@@ -20,37 +20,37 @@ export default () => {
 				...yStack({ gap: "1rem", align: "start" }),
 			}}
 		>
-			<Heading scale={0}>
+			<Heading size={0}>
 				Hello world!
 			</Heading>
-			<Heading scale={1}>
+			<Heading size={1}>
 				Hello world!
 			</Heading>
-			<Heading scale={2}>
+			<Heading size={2}>
 				Hello world!
 			</Heading>
-			<Heading scale={3}>
+			<Heading size={3}>
 				Hello world!
 			</Heading>
-			<Heading scale={4}>
+			<Heading size={4}>
 				Hello world!
 			</Heading>
-			<Heading scale={5}>
+			<Heading size={5}>
 				Hello world!
 			</Heading>
-			<Heading scale={6}>
+			<Heading size={6}>
 				Hello world!
 			</Heading>
-			<Heading scale={7}>
+			<Heading size={7}>
 				Hello world!
 			</Heading>
-			<Heading scale={8}>
+			<Heading size={8}>
 				Hello world!
 			</Heading>
-			<Heading scale={9}>
+			<Heading size={9}>
 				Hello world!
 			</Heading>
-			<Heading scale={10}>
+			<Heading size={10}>
 				Hello world!
 			</Heading>
 			<Text color={"rose"} tooltip={"LOL"}>
