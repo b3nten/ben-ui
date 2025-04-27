@@ -3,7 +3,6 @@ import { Tooltip as TooltipImpl } from "radix-ui";
 import {
 	type PropsWithChildren,
 	type ReactNode,
-	createElement,
 	useState,
 } from "react";
 import { Box } from "./mod.ts";

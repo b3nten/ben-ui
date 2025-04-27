@@ -168,7 +168,7 @@ export let makeColor = (args: {
 		if(args.opacity) {
 			return `color-mix(in srgb, var(--color-${args.name}-${args.shade}), transparent ${100 - args.opacity}%)`;
 		} else {
-			return `var(--color-${args.name}-${args.shade}`;
+			return `var(--color-${args.name}-${args.shade})`;
 		}
 	}
 	let colorVar = `var(--color-${args.name}-${args.usage}`;

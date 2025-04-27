@@ -1,6 +1,6 @@
 import { Dialog as DialogImpl, VisuallyHidden } from "radix-ui";
 import { createContext, type PropsWithChildren, use, useState } from "react";
-import { Box, Text, ThemeContext, makeColor, spacing, sizes } from "./mod.ts";
+import { Box, Text, ThemeContext, makeColor, spacing, sizes, tags } from "./mod.ts";
 import { AnimatePresence } from "motion/react";
 
 export type DialogContentProps = {
@@ -14,6 +14,10 @@ let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
 	let overlay = typeof props.overlay === "boolean" ? props.overlay : true;
 	let color = props.color ?? use(ThemeContext).color;
 	let open = use(DialogContext).open;
+	console.log(`2px solid ${makeColor({
+		name: "rose",
+		shade: 500,
+	})}`)
 	return (
 		<DialogImpl.Portal forceMount>
 			<AnimatePresence>
@@ -96,9 +100,26 @@ let DialogContent = (props: PropsWithChildren<DialogContentProps>) => {
 												display: "flex",
 												alignItems: "center",
 												justifyContent: "center",
+												backgroundColor: makeColor({
+													name: "rose",
+													usage: "bg",
+												}),
+												focus: {
+													outline: `2px solid ${makeColor({
+														name: "rose",
+														shade: 500,
+													})}`,
+													outlineOffset: "2px",
+												}
 											}}
 										>
-											&#x2715;
+											<tags.span
+												css={{
+													transform: `translateY(1px)`,
+												}}
+											>
+												&#x2715;
+											</tags.span>
 										</Box>
 									</DialogImpl.Close>
 									<Box
