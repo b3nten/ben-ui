@@ -20,3 +20,9 @@ export {
 export { withTooltip, Tooltip, Content, Trigger, Root } from "./tooltip.tsx"
 
 export * from "./tokens.ts"
+export {
+	type TextboxProps,
+	Textbox,
+	type TextareaProps,
+	Textarea,
+} from "./inputs.tsx"

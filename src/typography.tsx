@@ -258,7 +258,6 @@ export let Blockquote = <T extends ElementType = "blockquote">(props: Blockquote
 			usage: "fg",
 			opacity: 2,
 		})}`,
-		marginLeft: `calc(${spacing[4]})`,
 	}), [color, maxWidth])
 
 	let styles = useMemo(() =>
@@ -275,7 +274,15 @@ export let Blockquote = <T extends ElementType = "blockquote">(props: Blockquote
 			className={classes}
 			css={styles}
 		>
+			<Box
+				as={"span"}
+				css={{
+					marginLeft: spacing[4],
+				}}
+			>
 			{children}
+			</Box>
+
 		</Box>,
 		tooltip,
 		color

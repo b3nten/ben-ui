@@ -1,6 +1,6 @@
 @layer reset, theme;
-@import "./reset.css";
 
+@import "./reset.css";
 @import url('https://fonts.googleapis.com/css2?family=Domine:wght@400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
@@ -54,6 +54,10 @@
     // Default values
     :root {
         --scale: 1;
+
+        --transition-duration: 0.1s;
+        --transition-timing-function: ease-in-out;
+        --transition: all var(--transition-duration) var(--transition-timing-function);
 
         --typography-serif: 'Domine', serif;
         --typography-sans: 'Quicksand', sans-serif;
@@ -181,17 +185,17 @@
         @include spacing("9", 4rem);
         @include spacing("10", 5rem);
 
-        @include typography-scale("0", 0.875rem, 0em, .5rem);
-        @include typography-scale("1", 1.25rem, 0em, .75rem);
-        @include typography-scale("2", 1.5rem, -0.005em, 1rem);
-        @include typography-scale("3", 1.75rem, -0.00625em, 2rem);
-        @include typography-scale("4", 2.25rem, -0.0075em, 1.95rem);
-        @include typography-scale("5", 3rem, -0.01em, 2.85rem);
-        @include typography-scale("6", 4rem, -0.025em, 3.5rem);
-        @include typography-scale("7", 5rem, -0.025em, 4.5rem);
-        @include typography-scale("8", 6rem, -0.025em, 5.5rem);
-        @include typography-scale("9", 7rem, -0.025em, 6.5rem);
-        @include typography-scale("10", 8rem, -0.025em, 7.5rem);
+        @include typography-scale("0", 0.875rem, 0em, 1.25);
+        @include typography-scale("1", 1.125rem, 0em, 1.25);
+        @include typography-scale("2", 1.5rem, -0.005em, 1.25);
+        @include typography-scale("3", 1.75rem, -0.00625em, 1.25);
+        @include typography-scale("4", 2.25rem, -0.0075em, 1.25);
+        @include typography-scale("5", 3rem, -0.01em, 1.25);
+        @include typography-scale("6", 4rem, -0.025em, 1.25);
+        @include typography-scale("7", 5rem, -0.025em, 1.25);
+        @include typography-scale("8", 6rem, -0.025em, 1.25);
+        @include typography-scale("9", 7rem, -0.025em, 1.25);
+        @include typography-scale("10", 8rem, -0.025em, 1.25);
 
         --typography-scale: var(--typography-size-1);
     }

@@ -1,6 +1,7 @@
-import { Blockquote, Box, Button, Code, Heading, Link, Text } from "../src/mod.ts";
+import { Blockquote, Box, Button, Code, Heading, Link, Text, Textarea, Textbox } from "../src/mod.ts";
 import { yStack } from "../src/tokens.ts";
 import { useState } from "react";
+import { Search, SunIcon } from "lucide-react";
 
 export default () => {
 	let [pending, setPending] = useState(false)
@@ -20,6 +21,19 @@ export default () => {
 				...yStack({ gap: "1rem", align: "start" }),
 			}}
 		>
+			<Textbox
+				ghost
+				icon={<SunIcon />}
+				button={<Search />}
+				name={"text"}
+			/>
+			<Textarea
+				ghost
+				css={{
+					width: "100%",
+					height: "200px",
+				}}
+			/>
 			<Heading size={0}>
 				Hello world!
 			</Heading>
@@ -53,7 +67,7 @@ export default () => {
 			<Heading size={10}>
 				Hello world!
 			</Heading>
-			<Text color={"rose"} tooltip={"LOL"}>
+			<Text color={"rose"} tooltip={"LOL"} size={3} scale={1}>
 				Hello this is a text and <Code tooltip={"some code"}>code</Code> block!
 			</Text>
 			<Link href={"/foo"} color={"rose"}>

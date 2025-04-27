@@ -32,7 +32,7 @@ let makeButtonStyles = (
 	position: "relative",
 	overflow: "hidden",
 	padding: padding[args.size],
-	transition: "all 0.1s ease-in-out",
+	transition: "var(--default-transition)",
 	borderRadius: "999px",
 	fontFamily: typography.style.sansSerif,
 	backgroundColor: ghost(

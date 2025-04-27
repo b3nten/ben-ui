@@ -116,13 +116,46 @@ export const typography = {
 	}
 }
 
+type TransitionProperties = {
+	target: CSSProperties["transitionProperty"],
+	duration?: CSSProperties["transitionDuration"],
+	timing?: CSSProperties["transitionTimingFunction"],
+}
+
+let makeTransitionProperty = (args: TransitionProperties) =>
+	`${args.target} ${args.duration ?? "var(--transition-duration)"} ${args.timing ?? "var(--transition-timing-function)"}`
+
+export let makeTransition = (
+	...args: Array<TransitionProperties>
+): CSSProperties["transition"] => args.length === 1
+	? makeTransitionProperty(args[0])
+	: `${args.map((arg) => makeTransitionProperty(arg)).join(", ")}`
+
+
 export let makeColor = (args: {
 	name: string,
 	usage: "fg" | "bg" | "text" | "surface" | "overlay" | "shadow"
 	action?: "hover" | "active" | "normal" | "disabled" | "highlighted",
 	variant?: "string",
 	opacity?: number,
-}) =>
-	["surface", "overlay", "shadow"].includes(args.usage) ?
-	`var(--color-${args.name}-${args.usage}${args.variant ? `-${args.variant}` : ""})` :
-	args.opacity ? `color-mix(in srgb, var(--color-${args.name}-${args.usage}-${args.action ?? "normal"}${args.variant ? `-${args.variant}` : ""}), rgba(0, 0, 0, ${args.opacity}%))` : `var(--color-${args.name}-${args.usage}-${args.action ?? "normal"}${args.variant ? `-${args.variant}` : ""})`
+}) => {
+	let colorVar = `var(--color-${args.name}-${args.usage}`
+	if(args.action) {
+		colorVar += `-${args.action}`
+	} else if (
+		args.usage !== "surface"
+		&& args.usage !== "overlay"
+		&& args.usage !== "shadow"
+	) {
+		colorVar += `-normal`
+	}
+	if(args.variant) {
+		colorVar += `-${args.variant}`
+	}
+	colorVar += ")"
+	if(args.opacity) {
+		return `color-mix(in srgb, ${colorVar}, transparent ${100-args.opacity}%)`
+	} else {
+		return colorVar
+	}
+}
